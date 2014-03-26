@@ -1,0 +1,30 @@
+= Arquillian Non-Deploying Container for Red Hat OpenShift
+
+Register on https://www.openshift.com to get a free access!
+
+== OpenShift Non-Deploying Container
+
+This container does not deploy anything, instead it returns URL based on application name, namespace, port, eventually host name
+and archive name.
+
+Its purpose is to allow Arquillian to inject URL into @Deployment for tests that connect to already existing deployment on OpenShift.
+
+=== Usage
+
+1. Put container as +test+ scoped dependency to the project
+
+2. Define properties in _arquillian.xml_ that would make possible to construct URL.
+
+    * +app+ name of the application on OpenShift, this is *required*
+    * +namespace+ namespace on OpenShift, this is *required*
+    * +protocol+ either +http+ or +https+, by default it is +http+
+    * +port+ port, by default +80+
+    * +host+ base URL of the deployment, by default +app-namespace.rhcloud.com:port+ 
+    * +contextRootRemap+ a JSON map to remap context root given by deployment to different path
+
+TIP: Remapping can be used to modify deployment URL for archives that have different context path on local container and on OpenShift
+
+== TODO
+
+* 
+* Implement a ping for constructed URL - to check that application was indeed deployment at given location first
